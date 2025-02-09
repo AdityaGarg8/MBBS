@@ -1,16 +1,17 @@
 ---
 name: Sketchy
 on:
-  schedule:
-    - cron: '30 18 * * *'
+  #schedule:
+  #  - cron: '30 18 * * *'
   workflow_dispatch:
 
 jobs:
   Zip:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
 
       - name: Free up disk space for the CI
+        if: false
         uses: AdityaGarg8/remove-unwanted-software@v4
         with:
           remove-android: 'true'
@@ -24,10 +25,15 @@ jobs:
        
       - name: Create Zip
         run: |
+          brew install coreutils tree
           curl -L -O https://nightly.link/AdityaGarg8/MBBS/actions/runs/12456760940/Sketchy.zip
           unzip -d sketchy Sketchy.zip
-          tree
-
+          mkdir output
+          gsplit -b 2000M -x "${{ github.workspace }}/sketchy/sketchy.tar.gz" "${{ github.workspace }}/output/sketchy.tar.gz."
+          shasum -a 256 "${{ github.workspace }}/sketchy/sketchy.tar.gz"
+          gh release upload sketchy ${{ github.workspace }}/output/* --clobber -R AdityaGarg8/MBBS
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload zip
         uses: actions/upload-artifact@v4
         with:
