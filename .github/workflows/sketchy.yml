@@ -28,6 +28,7 @@ jobs:
           for i in 0 1 2 3 4 5
           do
           curl -L https://github.com/AdityaGarg8/MBBS/releases/download/sketchy/sketchy.tar.gz.0$i >> sketchy.tar.gz
+          done
           shasum -a 256 sketchy.tar.gz
         env:
           GH_TOKEN: ${{ secrets.PAT }}
