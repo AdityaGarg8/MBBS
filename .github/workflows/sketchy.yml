@@ -25,17 +25,14 @@ jobs:
        
       - name: Create Zip
         run: |
-          brew install coreutils tree
-          curl -L -O https://nightly.link/AdityaGarg8/MBBS/actions/runs/12456760940/Sketchy.zip
-          unzip -d sketchy Sketchy.zip
-          mkdir output
-          gsplit -b 2000M -x "${{ github.workspace }}/sketchy/sketchy.tar.gz" "${{ github.workspace }}/output/sketchy.tar.gz."
-          shasum -a 256 "${{ github.workspace }}/sketchy/sketchy.tar.gz"
-          gh release upload sketchy ${{ github.workspace }}/output/* --clobber -R AdityaGarg8/MBBS
+          for i in 0 1 2 3 4 5
+          do
+          curl -L https://github.com/AdityaGarg8/MBBS/releases/download/sketchy/sketchy.tar.gz.0$i >> sketchy.tar.gz
+          shasum -a 256 sketchy.tar.gz
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload zip
         uses: actions/upload-artifact@v4
         with:
           name: "Sketchy"
-          path: ${{ github.workspace }}/sketchy/sketchy.tar.gz
+          path: ${{ github.workspace }}/sketchy.tar.gz
