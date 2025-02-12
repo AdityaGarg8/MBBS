@@ -12,7 +12,7 @@ jobs:
 
       - name: Free up disk space for the CI
         if: false
-        uses: AdityaGarg8/remove-unwanted-software@v4
+        uses: AdityaGarg8/remove-unwanted-software@v5
         with:
           remove-android: 'true'
           remove-dotnet: 'true'
