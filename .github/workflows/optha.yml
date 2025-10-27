@@ -25,7 +25,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload zip
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: "Rajarathna Opthalmology"
           path: ${{ github.workspace }}/optha
