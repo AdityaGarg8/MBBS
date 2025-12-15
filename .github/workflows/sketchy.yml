@@ -33,7 +33,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload zip
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: "Sketchy"
           path: ${{ github.workspace }}/sketchy.tar.gz
